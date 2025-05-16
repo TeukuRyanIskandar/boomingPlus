@@ -1,6 +1,11 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { useBooking } from "@/context/BookingContext";
+import { themeData } from "@/data/ThemeData";
 
 export default function TheCheckout() {
+  const { bookingData } = useBooking();
+  const selectedTheme = themeData.find((t) => t.id === bookingData.themeId);
+
   return (
     <Card>
       <CardHeader className="">
@@ -12,7 +17,7 @@ export default function TheCheckout() {
         <div className="flex flex-col gap-4 border-b-2 pb-6">
           <div className="flex justify-between w-full">
             <p>Theme</p>
-            <p className="font-bold">Art nouveau</p>
+            <p className="font-bold">{selectedTheme?.title}</p>
           </div>
           <div className="flex justify-between w-full">
             <p>Date & Time</p>

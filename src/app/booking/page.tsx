@@ -1,7 +1,10 @@
 import { TheStepper } from "@/components/TheStepper"
+import { BookingProvider } from "@/context/BookingContext"
 
-export default async function Bo() {
+export default async function BookingPage() {
   return (
-    <TheStepper />
+    <BookingProvider>
+      <TheStepper />
+    </BookingProvider>
   )
 }

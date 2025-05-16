@@ -1,13 +1,17 @@
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
 import { themeData } from "@/data/ThemeData";
+import { useBooking } from "@/context/BookingContext";
 
 export default function TheTheme() {
-  const [selectedId, setSelectedId] = useState<number | null>(null);
+  const { bookingData, setBookingData } = useBooking();
+  const selectedId = bookingData.themeId;
 
   const handleSelect = (id: number) => {
-    setSelectedId(prevId => (prevId === id ? null : id));
+    setBookingData((prev) => ({
+      ...prev,
+      themeId: prev.themeId === id ? undefined : id,
+    }));
   };
 
   return (
@@ -19,7 +23,6 @@ export default function TheTheme() {
             ${selectedId === theme.id ? "border-amber-600" : ""}`}
           onClick={() => handleSelect(theme.id)}
         >
-          {/* Background image with full coverage */}
           <div
             className="absolute inset-0 z-0"
             style={{
@@ -28,8 +31,6 @@ export default function TheTheme() {
               backgroundPosition: 'center',
             }}
           />
-
-          {/* Black overlay with full coverage */}
           <div className="absolute inset-0 bg-black/60 z-10" />
 
           <div className="relative z-20 pl-4 pr-4 pb h-full flex flex-col gap-8">
@@ -44,7 +45,11 @@ export default function TheTheme() {
               </div>
               <Button
                 variant="ghost"
-                className={`${selectedId === theme.id ? "bg-amber-600 text-white hover:text-white" : "bg-white text-amber-600 hover:text-white"}`}
+                className={`${
+                  selectedId === theme.id
+                    ? "bg-amber-600 text-white hover:text-white"
+                    : "bg-white text-amber-600 hover:text-white"
+                }`}
               >
                 {selectedId === theme.id ? "Selected" : "Select Theme"}
               </Button>
