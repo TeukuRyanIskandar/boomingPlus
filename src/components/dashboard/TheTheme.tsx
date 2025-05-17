@@ -5,14 +5,17 @@ import { useBooking } from "@/context/BookingContext";
 
 export default function TheTheme() {
   const { bookingData, setBookingData } = useBooking();
-  const selectedId = bookingData.themeId;
+  const selectedId = bookingData.theme?.id;
 
-  const handleSelect = (id: number) => {
-    setBookingData((prev) => ({
-      ...prev,
-      themeId: prev.themeId === id ? undefined : id,
-    }));
-  };
+const handleSelect = (id: number) => {
+  const selectedTheme = themeData.find((theme) => theme.id === id);
+
+  setBookingData((prev) => ({
+    ...prev,
+    theme: prev.theme?.id === id ? undefined : selectedTheme,
+  }));
+};
+
 
   return (
     <div className="flex flex-col gap-5">
@@ -48,7 +51,7 @@ export default function TheTheme() {
                 className={`${
                   selectedId === theme.id
                     ? "bg-amber-600 text-white hover:text-white"
-                    : "bg-white text-amber-600 hover:text-white"
+                    : "bg-white text-amber-600 hover:text-white hover:bg-amber-400"
                 }`}
               >
                 {selectedId === theme.id ? "Selected" : "Select Theme"}

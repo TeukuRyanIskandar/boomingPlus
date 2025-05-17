@@ -1,16 +1,20 @@
 "use client"
 
-import { CalendarDays, HomeIcon, ScrollText, Image, HandCoins, ShoppingCart } from "lucide-react"
 import * as React from "react"
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link"
+import { detailsSchema, DetailsFormData } from "@/types/booking.types";
 
+import { CalendarDays, HomeIcon, ScrollText, Image, HandCoins, ShoppingCart } from "lucide-react"
 import { defineStepper } from "@/components/ui/stepper"
 import { Button } from "@/components/ui/button"
-import Link from "next/link"
 import TheTheme from "@/components/dashboard/TheTheme"
 import TheDateTime from "@/components/dashboard/TheDateTime"
 import TheDetails from "@/components/dashboard/TheDetails"
 import ThePaymentMethod from "./dashboard/ThePaymentMethod"
 import TheCheckout from "./dashboard/TheCheckout"
+import { useBooking } from "@/context/BookingContext";
 
 const { Stepper } = defineStepper(
   {
@@ -41,6 +45,17 @@ const { Stepper } = defineStepper(
 )
 
 export function TheStepper() {
+  const { bookingData, setBookingData } = useBooking();
+
+  const form = useForm<DetailsFormData>({
+    resolver: zodResolver(detailsSchema),
+    defaultValues: {
+      name: bookingData.details?.name || "",
+      email: bookingData.details?.email || "",
+      phoneNumber: bookingData.details?.phoneNumber || "",
+    },
+  });
+
   return (
     <Stepper.Provider className="space-y-4" variant="horizontal" labelOrientation="vertical">
       {({ methods }) => (
@@ -55,7 +70,7 @@ export function TheStepper() {
           {methods.switch({
             theme: () => <TheTheme />,
             dateTime: () => <TheDateTime />,
-            details: () => <TheDetails />,
+            details: () => <TheDetails form={form} />,
             payment: () => <ThePaymentMethod />,
             checkout: () => <TheCheckout />
           })}
@@ -74,7 +89,24 @@ export function TheStepper() {
                 <Button variant="secondary" onClick={methods.prev}>Back</Button>
               )
             }
-            <Button onClick={methods.isLast ? methods.reset : methods.next}>{methods.isLast ? "Reset" : "Next"}</Button>
+            <Button
+              onClick={
+                methods.current.id === "details"
+                  ? form.handleSubmit((data) => {
+                    setBookingData((prev) => ({
+                      ...prev,
+                      details: data,
+                    }));
+                    methods.next();
+                  })
+                  : methods.isLast
+                    ? methods.reset
+                    : methods.next
+              }
+            >
+              {methods.isLast ? "Reset" : "Next"}
+            </Button>
+
           </Stepper.Controls>
         </React.Fragment>
       )}

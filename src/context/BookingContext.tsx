@@ -1,23 +1,17 @@
 "use client";
 
 import React, { createContext, useContext, useState } from "react";
-
-type BookingData = {
-  themeId?: number;
-  dateTime?: string;
-  details?: string;
-  paymentMethod?: string;
-};
+import { BookingDataType } from "@/types/booking.types";
 
 type BookingContextType = {
-  bookingData: BookingData;
-  setBookingData: React.Dispatch<React.SetStateAction<BookingData>>;
+  bookingData: BookingDataType;
+  setBookingData: React.Dispatch<React.SetStateAction<BookingDataType>>;
 };
 
 const BookingContext = createContext<BookingContextType | undefined>(undefined);
 
 export const BookingProvider = ({ children }: { children: React.ReactNode }) => {
-  const [bookingData, setBookingData] = useState<BookingData>({});
+  const [bookingData, setBookingData] = useState<BookingDataType>({});
 
   return (
     <BookingContext.Provider value={{ bookingData, setBookingData }}>

@@ -1,4 +1,6 @@
-export const themeData = [
+import { ThemeType } from "@/types/booking.types";
+
+export const themeData: ThemeType[] = [
     {
       id: 0,
       title: 'Art Nouveau',
