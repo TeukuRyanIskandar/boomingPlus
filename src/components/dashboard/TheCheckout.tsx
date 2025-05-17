@@ -38,10 +38,6 @@ export default function TheCheckout() {
             <p>Email</p>
             <p className="font-bold">{bookingData.details?.email || "Not provided"}</p>
           </div>
-          <div className="flex justify-between w-full">
-            <p>Payment Method</p>
-            <p className="font-bold">{bookingData.paymentMethod?.method || "Not selected"}</p>
-          </div>
         </div>
       </CardContent>
       <CardFooter>

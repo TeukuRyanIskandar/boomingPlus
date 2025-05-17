@@ -1,21 +1,13 @@
-import { JSX } from "react";
 import { z } from "zod";
 
 export type ThemeType = {
   id: number;
   title: string;
   subtitle: string;
-  price: string;
+  price: number;
   background: string;
 };
 
-export type PaymentMethodType = {
-  id: number;
-  method: string;
-  logo: JSX.Element;
-  title: string;
-  subtitle: string;
-};
 
 export type DetailsType = {
   name: string;
@@ -27,7 +19,6 @@ export type BookingDataType = {
   theme?: ThemeType;
   dateTime?: Date;
   details?: DetailsType;
-  paymentMethod?: PaymentMethodType;
 };
 
 export const detailsSchema = z.object({

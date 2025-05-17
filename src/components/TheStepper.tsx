@@ -6,13 +6,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link"
 import { detailsSchema, DetailsFormData } from "@/types/booking.types";
 
-import { CalendarDays, HomeIcon, ScrollText, Image, HandCoins, ShoppingCart } from "lucide-react"
+import { CalendarDays, HomeIcon, ScrollText, Image, ShoppingCart } from "lucide-react"
 import { defineStepper } from "@/components/ui/stepper"
 import { Button } from "@/components/ui/button"
 import TheTheme from "@/components/dashboard/TheTheme"
 import TheDateTime from "@/components/dashboard/TheDateTime"
 import TheDetails from "@/components/dashboard/TheDetails"
-import ThePaymentMethod from "./dashboard/ThePaymentMethod"
 import TheCheckout from "./dashboard/TheCheckout"
 import { useBooking } from "@/context/BookingContext";
 
@@ -31,11 +30,6 @@ const { Stepper } = defineStepper(
     id: "details",
     title: "Details",
     icon: <ScrollText />,
-  },
-  {
-    id: "payment",
-    title: "Payment",
-    icon: <HandCoins />,
   },
   {
     id: "checkout",
@@ -71,7 +65,6 @@ export function TheStepper() {
             theme: () => <TheTheme />,
             dateTime: () => <TheDateTime />,
             details: () => <TheDetails form={form} />,
-            payment: () => <ThePaymentMethod />,
             checkout: () => <TheCheckout />
           })}
           <Stepper.Controls className="flex justify-between">
