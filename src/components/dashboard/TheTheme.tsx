@@ -44,14 +44,14 @@ const handleSelect = (id: number) => {
             <CardFooter className="flex justify-between">
               <div>
                 <p className="text-xs">Price</p>
-                <p className="text-xl">{theme.price}</p>
+                <p className="text-xl">RM{theme.price}</p>
               </div>
               <Button
                 variant="ghost"
                 className={`${
                   selectedId === theme.id
-                    ? "bg-amber-600 text-white hover:text-white"
-                    : "bg-white text-amber-600 hover:text-white hover:bg-amber-400"
+                    ? "bg-amber-600 text-white hover:text-amber-500"
+                    : "bg-white text-amber-600 hover:text-white hover:bg-amber-500"
                 }`}
               >
                 {selectedId === theme.id ? "Selected" : "Select Theme"}
