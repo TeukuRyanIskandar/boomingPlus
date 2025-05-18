@@ -1,8 +1,7 @@
-// hooks/useStepValidation.ts
 import { useBooking } from "@/context/BookingContext";
-import { useForm } from "react-hook-form";
+import { UseFormReturn, FieldValues } from "react-hook-form";
 
-export const useStepValidation = (form?: ReturnType<typeof useForm>) => {
+export function useStepValidation <T extends FieldValues>(form?: UseFormReturn<T>) {
   const { bookingData } = useBooking();
 
   const validateCurrentStep = (stepId: string): boolean => {

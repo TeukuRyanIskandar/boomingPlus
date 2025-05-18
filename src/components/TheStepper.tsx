@@ -53,7 +53,7 @@ export function TheStepper() {
 
   const { validateCurrentStep, canAccessStep } = useStepValidation(form);
 
-  const handleNext = async (methods) => {
+  const handleNext = async (methods: any) => {
     if (methods.current.id === "details") {
       return form.handleSubmit((data) => {
         setBookingData((prev) => ({ ...prev, details: data }));
