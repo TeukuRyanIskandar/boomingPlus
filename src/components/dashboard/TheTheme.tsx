@@ -7,14 +7,14 @@ export default function TheTheme() {
   const { bookingData, setBookingData } = useBooking();
   const selectedId = bookingData.theme?.id;
 
-const handleSelect = (id: number) => {
-  const selectedTheme = themeData.find((theme) => theme.id === id);
+  const handleSelect = (id: number) => {
+    const selectedTheme = themeData.find((theme) => theme.id === id);
 
-  setBookingData((prev) => ({
-    ...prev,
-    theme: prev.theme?.id === id ? undefined : selectedTheme,
-  }));
-};
+    setBookingData((prev) => ({
+      ...prev,
+      theme: prev.theme?.id === id ? undefined : selectedTheme,
+    }));
+  };
 
 
   return (
@@ -48,11 +48,10 @@ const handleSelect = (id: number) => {
               </div>
               <Button
                 variant="ghost"
-                className={`${
-                  selectedId === theme.id
+                className={`${selectedId === theme.id
                     ? "bg-amber-600 text-white hover:text-amber-500"
                     : "bg-white text-amber-600 hover:text-white hover:bg-amber-500"
-                }`}
+                  }`}
               >
                 {selectedId === theme.id ? "Selected" : "Select Theme"}
               </Button>
